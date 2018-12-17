@@ -47,7 +47,9 @@ export class NestedTreeControl<T> extends BaseTreeControl<T> {
       childrenNodes.forEach((child: T) => this._getDescendants(descendants, child));
     } else if (childrenNodes instanceof Observable) {
       childrenNodes.pipe(take(1)).subscribe(children => {
-        children.forEach((child: T) => this._getDescendants(descendants, child));
+        if (children) {
+          children.forEach((child: T) => this._getDescendants(descendants, child));
+        }
       });
     }
   }
